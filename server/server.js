@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import joi from "joi";
 
 
 const app=express();
@@ -36,13 +35,17 @@ app.get("/guestbook", async (req,res) => {
     await res.json(query.rows);
 });
 
-app.post("/new-data", async (req, res) => {
+app.post("/new-data",async (req, res) => {
    const data = req.body.formValues;
    const query = await db.query(
-      `INSERT INTO guestbook (guest_name,guest_address,guest_number,guest_comment) VALUES ($1, $2, $3, $4)`,
-     [data.guestname, data.guestaddress, data.guestnumber,data.guestcomment]
-   );
-await  res.json(query.rows);
 
-  });
+    
+       `insert into guestbook (guest_name,guest_address,guest_number,guest_comment) VALUES ($1, $2, $3, $4)`,
+    
+      [data.guestname, data.guestaddress, data.guestnumber,data.guestcomment],
+      console.log("THIS IS THE LOG", data.guestname)
+  );
+    await res.json(query.rows);
+   
+ });
 

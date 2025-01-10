@@ -23,4 +23,38 @@ function handleSubmitMessageForm(event) {
 }
 guestbook.addEventListener("submit", handleSubmitMessageForm);
 
+const Messageshop = document.getElementById("message");
+let MessageBox = [];
+async function messages() {
+  const response = await fetch(
+    "http://localhost:8080/guestbook"
+  );
+  const data = await response.json();
+  MessageBox.push(data);
+  console.log(MessageBox);
+  function MessagesDetail() {
+    for (let i = 0; i < MessageBox[0].length; i++) {
+      console.log(i);
 
+      const MessageContainer = document.createElement("div");
+      MessageContainer.className = "message-container";
+      Messageshop.appendChild(MessageContainer);
+
+      const MessageUserName = document.createElement("h3");
+      MessageUserName.textContent = `${MessageBox[0][i].guest_name } :`;
+      MessageUserName.className = "guestname";
+      MessageContainer.appendChild(MessageUserName);
+
+      
+      const MessageText = document.createElement("p");
+      MessageText.textContent = `"${MessageBox[0][i].guest_comment}"`;
+      MessageText.className = "message-text";
+      MessageContainer.appendChild(MessageText);
+
+     
+}
+  }
+  MessagesDetail();
+}
+
+messages();
