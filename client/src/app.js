@@ -1,5 +1,6 @@
 const guestbook = document.querySelector("#guestbook");
 
+
 function handleSubmitMessageForm(event) {
   event.preventDefault();
 
@@ -7,7 +8,8 @@ function handleSubmitMessageForm(event) {
   const formValues = Object.fromEntries(formData);
 
 
-  fetch("http://localhost:8080/messages", {
+  
+  fetch("http://localhost:8080/new-data", {
    
     method: "POST",
    
@@ -15,25 +17,32 @@ function handleSubmitMessageForm(event) {
       "Content-Type": "application/json",
     },
  
-    body: JSON.stringify({ formValues }),
+    body: JSON.stringify({formValues}),
 
   });
   console.log(formValues);
+  setTimeout(guestbook.onsubmit = function(){
+    alert("Message submitted!")
+    location.reload(true);
+}
+, 3000)
 
 }
 guestbook.addEventListener("submit", handleSubmitMessageForm);
 
+
 const Messageshop = document.getElementById("message");
 let MessageBox = [];
+
 async function messages() {
-  const response = await fetch(
+const response = await fetch(
     "http://localhost:8080/guestbook"
   );
   const data = await response.json();
   MessageBox.push(data);
   console.log(MessageBox);
-  function MessagesDetail() {
-    for (let i = 0; i < MessageBox[0].length; i++) {
+  async function MessagesDetail() {
+   for (let i = 0; i < MessageBox[0].length; i++) {
       console.log(i);
 
       const MessageContainer = document.createElement("div");
@@ -51,7 +60,7 @@ async function messages() {
       MessageText.className = "message-text";
       MessageContainer.appendChild(MessageText);
 
-     
+      
 }
   }
   MessagesDetail();
