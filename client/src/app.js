@@ -9,7 +9,7 @@ function handleSubmitMessageForm(event) {
 
 
   
-  fetch("http://localhost:8080/new-data", {
+  fetch("https://week4-assignment-ce6v.onrender.com/new-data", {
    
     method: "POST",
    
@@ -36,7 +36,7 @@ let MessageBox = [];
 
 async function messages() {
 const response = await fetch(
-    "http://localhost:8080/guestbook"
+    "https://week4-assignment-ce6v.onrender.com/guestbook"
   );
   const data = await response.json();
   MessageBox.push(data);
